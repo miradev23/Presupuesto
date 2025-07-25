@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presupuesto Fácil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="res/img/fav.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="card" id="mainContent">
+        <div class="card-header">
+            <h2 class="card-title">Nuevo registro</h2>
+        </div>
+        <div class="card-content">
+            <form id="transaction-form" class="form">
+                <div id="switch-container" class="switch-container">
+                    <input type="checkbox" id="compact-mode" class="switch">
+                    <label for="compact-mode" id="switch-label" class="switch-label">Gasto</label>
+                </div>
+                <div id="input-container" class="input-container">
+                    <div class="input-group" id="paymentMethodContainer">
+                        <i class="fas fa-wallet"></i>
+                        <select id="paymentMethods"></select>
+                    </div>
+                    <div class="input-group" id="categoryContainer">
+                        <i class="fas fa-tag"></i>
+                        <select id="categories"></select>
+                    </div>
+                    <div class="input-group" id="investmentContainer">
+                        <i class="fas fa-chart-line"></i>
+                        <select id="investments"></select>
+                    </div>
+                    <div class="input-group" id="descriptionContainer">
+                        <i class="fas fa-chart-bar"></i>
+                        <input id="descriptionInput" type="text" placeholder="Descripción" name="Descripción" />
+                    </div>
+                    <div class="input-group" id="amountContainer">
+                        <i class="fas fa-dollar-sign" style="margin: 0px 3px;"></i>
+                        <input id="amountInput" class="form-item-input" type="text" placeholder="Monto" name="Cantidad">
+                    </div>
+                </div>
+                <div id="button-container" class="button-container">
+                    <button id="editLastPost" class="edit-last-post">
+                        <i class="fa-solid fa-rotate-right"></i>
+                    </button>
+                    <button id="multiPost" class="multi-post">+</button>
+                    <button id="sendPost" type="submit" class="submit-button">
+                        <i id="loading-icon" class="fas fa-spinner fa-spin" style="display:none;"></i>
+                        <span id="submit-text">Enviar</span>
+                    </button>
+                    <button id="sendMultiPost" type="submit" class="send-multi-post">Enviar todo</button>
+                </div>
+            </form>
+        </div>
+        <div id="success-message" class="card-footer" style="display:none;">
+            <span>¡Transacción guardada con éxito!</span>
+        </div>
+    </div>
+    <div id="loader" class="loader" style="display:none;"></div>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="form.js"></script>
+</body>
+
+</html>
