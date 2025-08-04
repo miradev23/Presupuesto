@@ -1,3 +1,5 @@
+import CONST from './const.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const now = new Date();
     const hour = now.getHours();
@@ -52,10 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMultiPostBtn.disabled = multiFormData.length === 0 ? true : false;
         }
     });
-
-    /* formInputs.forEach(input => {
-        input.addEventListener('input', () => limpiarInput(input));
-    }); */
 
     window.checkInputs = () => {
         submitButton.disabled = !amountInput.value.trim();
@@ -119,83 +117,58 @@ document.addEventListener('DOMContentLoaded', () => {
     categoriesSelect.addEventListener('change', evaluateCategory);
     checkInputs();
     showModifyButton();
-    fillDataLists(true);
+    init();
+    //fillDataLists(true);
 });
 
-function fillDataLists(isSpend) {
-    const cardList = document.getElementById('paymentMethods');
-    const categoryList = document.getElementById('categories');
-    const investmentList = document.getElementById('investments');
+async function init() {
+    const response = await fetch(`${CONST.URL}?accessType=${encodeURIComponent("fillData")}`);
+    const encoded = await response.text();
+    const decoded = atob(encoded.trim());
+    const result = JSON.parse(decoded);
+    console.log(result);
 
-    const incomeCategories = [
-        "Inversiones",
-        "Nómina",
-        "Préstamo",
-        "Regalos",
-        "Prestado",
-        "Apartados",
-        "Vales",
-        "Extraordinarios",
-        //"Emergencias"
-    ];
+    localStorage.setItem('paymentMethodList', result.paymentMethodList);
+    localStorage.setItem('expenseCategoryList', result.expenseCategoryList);
+    localStorage.setItem('incomeCategoryList', result.incomeCategoryList);
+    localStorage.setItem('investmentList', result.investmentList);
 
-    const investments = [
-        "Cajita Nu",
-        "Cajita Nu 90 dias",
-        "Didi cuenta",
-        //"Cajita Nu Turbo",
-        //"Mercado Pago"
-    ];
+    fillDataLists(true);
+}
 
-    const cards = [
-        "Tarjeta 2 Now",
-        "Tarjeta Like U",
-        "Vales de despensa",
-        "Efectivo",
-        "Tarjeta Simplicity",
-        "Tarjeta Liverpool",
-        "Tarjeta Costco"
-    ];
+async function fillDataLists(isSpend) {
+    const paymentMethodSelect = document.getElementById('paymentMethods');
+    const categorySelect = document.getElementById('categories');
+    const investmentSelect = document.getElementById('investments');
+    const paymentMethodList = JSON.parse(localStorage.getItem('paymentMethodList').split(",")) || [];
+    const expenseCategoryList = JSON.parse(localStorage.getItem('expenseCategoryList').split(",")) || [];
+    const incomeCategoryList = JSON.parse(localStorage.getItem('incomeCategoryList').split(",")) || [];
+    const investmentListData = JSON.parse(localStorage.getItem('investmentList').split(",")) || [];
 
-    const categories = [
-        "Gastos fijos",
-        "Comida",
-        "Mandado",
-        "Entretenimiento",
-        "Ropa y accesorios",
-        "Otros",
-        "Gasolina",
-        "Gastos médicos",
-        "Prestado",
-        "Apartados",
-        //"Emergencias",
-        "Pago de tarjeta"
-    ];
+    paymentMethodSelect.innerHTML = '';
+    categorySelect.innerHTML = '';
+    investmentSelect.innerHTML = '';
 
-    cardList.innerHTML = '';
-    categoryList.innerHTML = '';
-    investmentList.innerHTML = '';
-
-    cards.forEach(card => {
+    paymentMethodList.forEach(card => {
         const option = document.createElement('option');
         option.value = card;
         option.textContent = card;
-        cardList.appendChild(option);
+        paymentMethodSelect.appendChild(option);
     });
 
-    const categoriesToUse = isSpend ? categories : incomeCategories;
+    const categoriesToUse = isSpend ? expenseCategoryList : incomeCategoryList;
     categoriesToUse.forEach(cat => {
         const option = document.createElement('option');
         option.value = cat === 'N?mina' ? 'Nómina' : cat;
         option.textContent = cat === 'N?mina' ? 'Nómina' : cat;
-        categoryList.appendChild(option);
+        categorySelect.appendChild(option);
     });
 
-    investments.forEach(investment => {
+    investmentListData.forEach(investment => {
         const option = document.createElement('option');
         option.value = investment;
         option.textContent = investment;
-        investmentList.appendChild(option);
+        investmentSelect.appendChild(option);
     });
 }
 
@@ -205,21 +178,3 @@ const clearLocalStorage = () => {
 
 window.addEventListener('beforeunload', clearLocalStorage);
 window.addEventListener('pagehide', clearLocalStorage);
-
-/* function limpiarInput(input) {
-    let regex = /[^a-zA-Z0-9\s]/g;
-    let maxLength = 30;
-
-    switch (input.id) {
-        case 'amountInput':
-            maxLength = 13;
-            regex = /[^0-9.]/g;
-            break;
-    }
-
-    input.value = input.value.replace(regex, '');
-
-    if (input.value.length > maxLength) {
-        input.value = input.value.substring(0, maxLength);
-    }
-} */

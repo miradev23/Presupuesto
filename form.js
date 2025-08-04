@@ -1,3 +1,5 @@
+import CONST from './const.js';
+
 document.getElementById("transaction-form").addEventListener("submit", function (e) {
     e.preventDefault();
     const form = document.getElementById('transaction-form');
@@ -40,7 +42,7 @@ document.getElementById("transaction-form").addEventListener("submit", function 
         return new Promise((resolve, reject) => {
 
             // URLs a las que enviar el POST
-            var url1 = "https://script.google.com/macros/s/AKfycbwcOiceYZE5_YdjulRIc9pw3pXlFPW0O5YUiwIp4ZG4ulAc4P8cfnVfqm32y3G2hZ6NKQ/exec";
+            var url1 = CONST.URL;
 
             var fetchOptions = {
                 redirect: "follow",
