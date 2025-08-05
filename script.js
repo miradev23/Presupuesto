@@ -121,11 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function init() {
-    const response = await fetch(`${CONST.URL}?accessType=${encodeURIComponent("fillData")}`);
-    const encoded = await response.text();
-    const decoded = atob(encoded.trim());
-    const result = JSON.parse(decoded);
-
+    const loader = document.getElementById('loader');
     const listKeys = [
         'paymentMethodList',
         'expenseCategoryList',
@@ -133,23 +129,23 @@ async function init() {
         'investmentList'
     ];
 
-    let needsUpdate = false;
-
-    // Verifica si falta alguna lista o si alguna cambió
-    for (const key of listKeys) {
-        const localValue = localStorage.getItem(key);
-        const remoteValue = result[key];
-        if (localValue === null || localValue !== remoteValue) {
-            needsUpdate = true;
-            break;
-        }
+    // Si están todos los datos en local, llena las listas y termina
+    const allPresent = listKeys.every(key => localStorage.getItem(key) !== null);
+    if (allPresent) {
+        fillDataLists(true);
+        return;
     }
 
-    // Si es necesario, actualiza todas las listas
-    if (needsUpdate) {
-        for (const key of listKeys) {
-            localStorage.setItem(key, result[key]);
-        }
+    // Solo si falta algo, consulta al servidor
+    loader.style.display = 'block';
+    const response = await fetch(`${CONST.URL}?accessType=${encodeURIComponent("fillData")}`);
+    const encoded = await response.text();
+    const decoded = atob(encoded.trim());
+    const result = JSON.parse(decoded);
+
+    loader.style.display = 'none';
+    for (const key of listKeys) {
+        localStorage.setItem(key, result[key]);
     }
 
     fillDataLists(true);
