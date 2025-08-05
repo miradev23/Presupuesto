@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const inputGroups = document.querySelectorAll('.input-group');
     const inputs = document.querySelectorAll('.input-group input');
-    const formInputs = document.querySelectorAll('input');
     const paymentMethodsSelect = document.getElementById('paymentMethods');
     const categoriesSelect = document.getElementById('categories');
     const selects = document.querySelectorAll('select');
+    const mainContainer = document.getElementById('mainContent');
     const prefix = 'Enviar todo ';
 
     investmentContainer.style.display = 'none';
@@ -137,6 +137,7 @@ async function init() {
     }
 
     // Solo si falta algo, consulta al servidor
+    mainContainer.style.display = 'none';
     loader.style.display = 'block';
     const response = await fetch(`${CONST.URL}?accessType=${encodeURIComponent("fillData")}`);
     const encoded = await response.text();
@@ -144,6 +145,7 @@ async function init() {
     const result = JSON.parse(decoded);
 
     loader.style.display = 'none';
+    mainContainer.style.display = 'block';
     for (const key of listKeys) {
         localStorage.setItem(key, result[key]);
     }

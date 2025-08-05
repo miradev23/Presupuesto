@@ -12,7 +12,6 @@ document.getElementById("transaction-form").addEventListener("submit", function 
     const paymentMethodSelect = document.getElementById('paymentMethods');
     const categoriesSelect = document.getElementById('categories');
     const investmentSelect = document.getElementById('investments');
-    const descriptionInput = document.getElementById('descriptionInput');
     const descriptionContainer = document.getElementById('descriptionContainer');
     const multiPostBtn = document.getElementById('multiPost');
     const sendPostBtn = document.getElementById('sendPost');
