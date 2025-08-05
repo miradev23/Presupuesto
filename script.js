@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const paymentMethodsSelect = document.getElementById('paymentMethods');
     const categoriesSelect = document.getElementById('categories');
     const selects = document.querySelectorAll('select');
-    const mainContainer = document.getElementById('mainContent');
     const prefix = 'Enviar todo ';
 
     investmentContainer.style.display = 'none';
@@ -121,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function init() {
+    const mainContainer = document.getElementById('mainContent');
     const loader = document.getElementById('loader');
     const listKeys = [
         'paymentMethodList',
