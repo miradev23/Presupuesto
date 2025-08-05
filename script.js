@@ -140,10 +140,10 @@ async function fillDataLists(isSpend) {
     const paymentMethodSelect = document.getElementById('paymentMethods');
     const categorySelect = document.getElementById('categories');
     const investmentSelect = document.getElementById('investments');
-    const paymentMethodList = JSON.parse(localStorage.getItem('paymentMethodList').split(",")) || [];
-    const expenseCategoryList = JSON.parse(localStorage.getItem('expenseCategoryList').split(",")) || [];
-    const incomeCategoryList = JSON.parse(localStorage.getItem('incomeCategoryList').split(",")) || [];
-    const investmentListData = JSON.parse(localStorage.getItem('investmentList').split(",")) || [];
+    const paymentMethodList = localStorage.getItem('paymentMethodList').split(",") || [];
+    const expenseCategoryList = localStorage.getItem('expenseCategoryList').split(",") || [];
+    const incomeCategoryList = localStorage.getItem('incomeCategoryList').split(",") || [];
+    const investmentListData = localStorage.getItem('investmentList').split(",") || [];
 
     paymentMethodSelect.innerHTML = '';
     categorySelect.innerHTML = '';
