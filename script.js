@@ -118,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     checkInputs();
     showModifyButton();
     init();
-    //fillDataLists(true);
 });
 
 async function init() {
@@ -126,24 +125,44 @@ async function init() {
     const encoded = await response.text();
     const decoded = atob(encoded.trim());
     const result = JSON.parse(decoded);
-    console.log(result);
 
-    localStorage.setItem('paymentMethodList', result.paymentMethodList);
-    localStorage.setItem('expenseCategoryList', result.expenseCategoryList);
-    localStorage.setItem('incomeCategoryList', result.incomeCategoryList);
-    localStorage.setItem('investmentList', result.investmentList);
+    const listKeys = [
+        'paymentMethodList',
+        'expenseCategoryList',
+        'incomeCategoryList',
+        'investmentList'
+    ];
+
+    let needsUpdate = false;
+
+    // Verifica si falta alguna lista o si alguna cambió
+    for (const key of listKeys) {
+        const localValue = localStorage.getItem(key);
+        const remoteValue = result[key];
+        if (localValue === null || localValue !== remoteValue) {
+            needsUpdate = true;
+            break;
+        }
+    }
+
+    // Si es necesario, actualiza todas las listas
+    if (needsUpdate) {
+        for (const key of listKeys) {
+            localStorage.setItem(key, result[key]);
+        }
+    }
 
     fillDataLists(true);
 }
 
-async function fillDataLists(isSpend) {
+function fillDataLists(isSpend) {
     const paymentMethodSelect = document.getElementById('paymentMethods');
     const categorySelect = document.getElementById('categories');
     const investmentSelect = document.getElementById('investments');
-    const paymentMethodList = localStorage.getItem('paymentMethodList').split(",") || [];
-    const expenseCategoryList = localStorage.getItem('expenseCategoryList').split(",") || [];
-    const incomeCategoryList = localStorage.getItem('incomeCategoryList').split(",") || [];
-    const investmentListData = localStorage.getItem('investmentList').split(",") || [];
+    const paymentMethodList = localStorage.getItem('paymentMethodList').split(",");
+    const expenseCategoryList = localStorage.getItem('expenseCategoryList').split(",");
+    const incomeCategoryList = localStorage.getItem('incomeCategoryList').split(",");
+    const investmentListData = localStorage.getItem('investmentList').split(",");
 
     paymentMethodSelect.innerHTML = '';
     categorySelect.innerHTML = '';
@@ -158,9 +177,12 @@ async function fillDataLists(isSpend) {
 
     const categoriesToUse = isSpend ? expenseCategoryList : incomeCategoryList;
     categoriesToUse.forEach(cat => {
+        let value = cat;
+        if (cat === 'N?mina') value = 'Nómina';
+        if (cat === 'Pr?stamo') value = 'Préstamo';
         const option = document.createElement('option');
-        option.value = cat === 'N?mina' ? 'Nómina' : cat;
-        option.textContent = cat === 'N?mina' ? 'Nómina' : cat;
+        option.value = value;
+        option.textContent = value;
         categorySelect.appendChild(option);
     });
 
