@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         selects.forEach(select => select.classList.toggle('light-mode', isLightMode));
     };
 
-    toggleLightMode(hour >= 6 && hour < 20);
+    toggleLightMode(hour >= 6 && hour < 18);
 
     compactModeSwitch.addEventListener('change', () => {
         const isCompactMode = compactModeSwitch.checked;
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1200);
         } else if (!isNaN(value)) {
             value = parseFloat(value);
-            amountInput.value = `$${value.toFixed(2)}`;
+            amountInput.value = `${value.toFixed(2)}`;
             checkInputs();
         }
     });
