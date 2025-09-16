@@ -192,22 +192,18 @@ document.getElementById("transaction-form").addEventListener("submit", function 
                 }
             } else {
                 submitText.textContent = 'Enviando...';
-                let lastRegisteredData = JSON.parse(localStorage.getItem('lastRegisteredData')) || [];
+                /* let lastRegisteredData = JSON.parse(localStorage.getItem('lastRegisteredData')) || [];
 
                 if (lastRegisteredData.length === 0) {
-                    /**
-                     * Solo entra cuando es un gasto.
-                     */
+                    // Solo entra cuando es un gasto.
                     if (!compactModeSwitch.checked) {
                         console.log('entro dentro');
-                        /**
-                         * Se agrega el dato modify vacío para que el script de Google
-                         * reconozca que es un registro nuevo y no una modificación
-                         */
+                        
+                        // Se agrega el dato modify vacío para que el script de Google
+                        // reconozca que es un registro nuevo y no una modificación
+                        
                         formDataString += "&Modify=";
-                        /**
-                         * Si no hay datos registrados, se guarda el registro
-                         */
+                        // Si no hay datos registrados, se guarda el registro
                         lastRegisteredData.push(keyValuePairs);
                         localStorage.setItem('lastRegisteredData', JSON.stringify(lastRegisteredData));
                     }
@@ -215,26 +211,22 @@ document.getElementById("transaction-form").addEventListener("submit", function 
                     const { isModification, differentData } = compareLastRegisteredData(keyValuePairs);
 
                     if (isModification) {
-                        /**
-                         * Hay modificación y elimina 'lastRegisteredData' de localStorage
-                         * porque ya se hizo modificación con ese registro.
-                         */
+                        // Hay modificación y elimina 'lastRegisteredData' de localStorage
+                        // porque ya se hizo modificación con ese registro.
                         formDataString += `&Modify=${differentData}`;
                         localStorage.removeItem('lastRegisteredData');
                     } else {
-                        /**
-                         * No hay modificación, se agrega el dato modify vacío para que 
-                         * el script de Google reconozca que es un registro nuevo además 
-                         * se actualiza el localStorage existente con el último registro
-                         * por si se quiere modificar.
-                         */
+                        // No hay modificación, se agrega el dato modify vacío para que
+                        // el script de Google reconozca que es un registro nuevo además
+                        // se actualiza el localStorage existente con el último registro
+                        // por si se quiere modificar.
                         formDataString += "&Modify=";
                         lastRegisteredData[0] = keyValuePairs;
                         localStorage.setItem('lastRegisteredData', JSON.stringify(lastRegisteredData));
                     }
 
                     //console.log(differentData);
-                }
+                } */
 
                 formDataString += "&Notify=simple";
                 //console.log(formDataString);
@@ -290,7 +282,7 @@ document.getElementById("transaction-form").addEventListener("submit", function 
         }
     }
 
-    function compareLastRegisteredData(currentData) {
+    /* function compareLastRegisteredData(currentData) {
         let lastRegisteredData = JSON.parse(localStorage.getItem('lastRegisteredData')) || [];
         let lastData = lastRegisteredData[0]; // Usar el registro 0 para comparar
         let differentData = "";
@@ -303,13 +295,12 @@ document.getElementById("transaction-form").addEventListener("submit", function 
                 equalDataLength++;
             }
         });
-
-        /**
-         * EqualDataLength se compara con la longitud esperada
-         * de los datos -1 para verificar si hay un campo a modificar
-         */
+        
+        // EqualDataLength se compara con la longitud esperada
+        // de los datos -1 para verificar si hay un campo a modificar
+        
         const isModification = equalDataLength === lastRegisteredData[0].length - 1;
 
         return { isModification, differentData };
-    }
+    } */
 });

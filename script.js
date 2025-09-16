@@ -192,9 +192,9 @@ function fillDataLists(isSpend) {
     });
 }
 
-const clearLocalStorage = () => {
+/* const clearLocalStorage = () => {
     localStorage.removeItem('lastRegisteredData');
 };
 
 window.addEventListener('beforeunload', clearLocalStorage);
-window.addEventListener('pagehide', clearLocalStorage);
+window.addEventListener('pagehide', clearLocalStorage); */
