@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         categoriesSelect.disabled = false;
 
         fillDataLists(!isCompactMode);
-        showModifyButton();
+        //showModifyButton();
 
         if (multiFormData == null) {
             sendMultiPostBtn.textContent = prefix;
@@ -81,12 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const showModifyButton = () => {
+    /* const showModifyButton = () => {
         const lastRegisteredData = JSON.parse(localStorage.getItem('lastRegisteredData')) || [];
         const isCompactMode = compactModeSwitch.checked;
 
         editLastPostBtn.style.display = (lastRegisteredData.length > 0 && !isCompactMode) ? 'flex' : 'none';
-    };
+    }; */
 
     amountInput.addEventListener('blur', () => {
         let value = amountInput.value.replace(/,/g, '').replace(/\$/g, '');
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     paymentMethodsSelect.addEventListener('change', evaluatePaymentMethod);
     categoriesSelect.addEventListener('change', evaluateCategory);
     checkInputs();
-    showModifyButton();
+    //showModifyButton();
     init();
 });
 

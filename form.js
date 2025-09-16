@@ -113,7 +113,7 @@ document.getElementById("transaction-form").addEventListener("submit", function 
         if (submitter.id === 'multiPost') {
             multiPostBtn.classList.toggle('enabled');
             toggleSendMultiPost();
-        } else if (submitter.id === 'editLastPost') {
+        } /* else if (submitter.id === 'editLastPost') {
             const lastRegisteredData = JSON.parse(localStorage.getItem('lastRegisteredData')) || [];
             if (lastRegisteredData.length > 0) {
                 const lastData = lastRegisteredData[0];
@@ -124,16 +124,16 @@ document.getElementById("transaction-form").addEventListener("submit", function 
                     if (input) {
                         input.value = value;
                     }
-                });
+                }); */
                 /**
                  * Se oculta el botón de editar sin eliminar el registro aun
                  * se elimina segun la lógica después de comparar los datos
                  * con el siguiente registro
                  */
-                editLastPostBtn.style.display = 'none';
+                /* editLastPostBtn.style.display = 'none';
                 checkInputs();
             }
-        } else if (submitter.id === 'sendMultiPost') {
+        } */ else if (submitter.id === 'sendMultiPost') {
             multiPostBtn.classList.toggle('enabled');
             toggleSendMultiPost();
 
