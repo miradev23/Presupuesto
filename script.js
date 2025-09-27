@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isCash = paymentMethodsSelect.value === 'Efectivo';
 
         if (isCash) {
-            categoriesSelect.value = 'Apartados';
+            categoriesSelect.value = 'Sin contemplar';
             categoriesSelect.disabled = true;
         } else {
             categoriesSelect.value = 'Gastos fijos';
