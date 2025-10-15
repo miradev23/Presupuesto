@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isCash = paymentMethodsSelect.value === 'Efectivo';
 
         if (isCash) {
-            categoriesSelect.value = 'Sin contemplar';
+            categoriesSelect.value = 'Apartados';
             categoriesSelect.disabled = true;
         } else {
             categoriesSelect.value = 'Gastos fijos';
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     amountInput.addEventListener('input', checkInputs);
     descriptionInput.addEventListener('input', checkInputs);
-    //paymentMethodsSelect.addEventListener('change', evaluatePaymentMethod);
+    paymentMethodsSelect.addEventListener('change', evaluatePaymentMethod);
     categoriesSelect.addEventListener('change', evaluateCategory);
     checkInputs();
     //showModifyButton();
